@@ -1,0 +1,115 @@
+Last login: Wed Jun 14 14:37:09 on console
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+(base) MacBook-Air-10:~ student$ cd Desktop
+(base) MacBook-Air-10:Desktop student$ cd bbc_news
+(base) MacBook-Air-10:bbc_news studocker build . -t bbc_news
+
+
+
+[+] Building 72.1s (13/13) FINISHED                                             
+ => [internal] load build definition from Dockerfile                       0.1s
+ => => transferring dockerfile: 443B                                       0.0s
+ => [internal] load .dockerignore                                          0.1s
+ => => transferring context: 2B                                            0.0s
+ => [internal] load metadata for docker.io/continuumio/miniconda3:latest   2.4s
+ => [internal] load build context                                          0.2s
+ => => transferring context: 14.18kB                                       0.0s
+ => [1/8] FROM docker.io/continuumio/miniconda3@sha256:f3637fcc44fac7c20  17.2s
+ => => resolve docker.io/continuumio/miniconda3@sha256:f3637fcc44fac7c20a  0.2s
+ => => sha256:ebc3dc5a2d72427c585c8cda7574a75d96e04b9a3 30.06MB / 30.06MB  5.8s
+ => => sha256:9de7f49fee2d9df86e6f8cf53a53258dfd7af768b 50.25MB / 50.25MB  2.3s
+ => => sha256:ed51677ed34fec7aca502c32d7ae47cccd7f48fac 45.12MB / 45.12MB  7.8s
+ => => sha256:f3637fcc44fac7c20aebcc6fb8910cf76139ff2f4e6 3.11kB / 3.11kB  0.0s
+ => => sha256:f313cdada606d6a5f41ff0795f542b539dbfbd8d65c591f 868B / 868B  0.0s
+ => => sha256:8cb9f9817eabb277cfc09e38c68f81fbffcda5ab43c 4.90kB / 4.90kB  0.0s
+ => => extracting sha256:ebc3dc5a2d72427c585c8cda7574a75d96e04b9a37572bd3  2.7s
+ => => extracting sha256:9de7f49fee2d9df86e6f8cf53a53258dfd7af768b3bdb302  3.2s
+ => => extracting sha256:ed51677ed34fec7aca502c32d7ae47cccd7f48faccbece31  4.9s
+ => [2/8] WORKDIR /home/app                                                0.3s
+ => [3/8] RUN apt-get update                                               2.5s
+ => [4/8] RUN apt-get install nano unzip                                   1.4s
+ => [5/8] RUN apt install curl -y                                          1.5s 
+ => [6/8] RUN curl -fsSL https://get.deta.dev/cli.sh | sh                  3.1s
+ => [7/8] RUN pip install boto3 pandas gunicorn streamlit sklearn matplo  39.5s
+ => [8/8] COPY . /home/app                                                 0.0s
+ => exporting to image                                                     4.0s
+ => => exporting layers                                                    4.0s
+ => => writing image sha256:6442692034f3b66aa518ec5424b19539cbcd810be96cf  0.0s
+ => => naming to docker.io/library/bbc_news                                0.0s
+(base) MacBook-Air-10:bbc_news student$ 
+(base) MacBook-Air-10:bbc_news student$ 
+(base) MacBook-Air-10:bbc_news student$ 
+(base) MacBook-Air-10:bbc_news student$ docker run -it -v "$(pwd):/home/app" -p 4000:4000 bbc_news
+\\Usage: streamlit run [OPTIONS] TARGET [ARGS]...
+Try 'streamlit run --help' for help.
+
+Error: Invalid value: File does not exist: streamlit8.py
+(base) MacBook-Air-10:bbc_news student$ docker build . -t bbc_news
+[+] Building 0.9s (13/13) FINISHED                                              
+ => [internal] load build definition from Dockerfile                       0.0s
+ => => transferring dockerfile: 436B                                       0.0s
+ => [internal] load .dockerignore                                          0.0s
+ => => transferring context: 2B                                            0.0s
+ => [internal] load metadata for docker.io/continuumio/miniconda3:latest   0.7s
+ => [1/8] FROM docker.io/continuumio/miniconda3@sha256:f3637fcc44fac7c20a  0.0s
+ => [internal] load build context                                          0.0s
+ => => transferring context: 1.50kB                                        0.0s
+ => CACHED [2/8] WORKDIR /home/app                                         0.0s
+ => CACHED [3/8] RUN apt-get update                                        0.0s
+ => CACHED [4/8] RUN apt-get install nano unzip                            0.0s
+ => CACHED [5/8] RUN apt install curl -y                                   0.0s
+ => CACHED [6/8] RUN curl -fsSL https://get.deta.dev/cli.sh | sh           0.0s
+ => CACHED [7/8] RUN pip install boto3 pandas gunicorn streamlit sklearn   0.0s
+ => [8/8] COPY . /home/app                                                 0.0s
+ => exporting to image                                                     0.0s
+ => => exporting layers                                                    0.0s
+ => => writing image sha256:d4edbf0bca1ecc371ea6e1cbd3aa92e8d35e6b38a07fa  0.0s
+ => => naming to docker.io/library/bbc_news                                0.0s
+(base) MacBook-Air-10:bbc_news student$ docker run -it -v "$(pwd):/home/app" -p 4000:4000 bbc_news
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to False.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Network URL: http://172.17.0.2:4000
+  External URL: http://31.32.42.226:4000
+
+2023-06-14 12:47:31.833 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/app/app.py", line 23, in <module>
+    col1, col2 = st.columns()
+  File "/opt/conda/lib/python3.10/site-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+TypeError: LayoutsMixin.columns() missing 1 required positional argument: 'spec'
+2023-06-14 12:51:12.873 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/app/app.py", line 31, in <module>
+    st.text_input("Enter your news article here:")
+  File "/opt/conda/lib/python3.10/site-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/streamlit/elements/text_widgets.py", line 176, in text_input
+    return self._text_input(
+  File "/opt/conda/lib/python3.10/site-packages/streamlit/elements/text_widgets.py", line 249, in _text_input
+    widget_state = register_widget(
+  File "/opt/conda/lib/python3.10/site-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/opt/conda/lib/python3.10/site-packages/streamlit/runtime/state/widgets.py", line 208, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple identical `st.text_input` widgets with the
+same generated key.
+
+When a widget is created, it's assigned an internal key based on
+its structure. Multiple widgets with an identical structure will
+result in the same internal key, which causes this error.
+
+To fix this error, please pass a unique `key` argument to
+`st.text_input`.
+
